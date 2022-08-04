@@ -6,7 +6,7 @@
 #    By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/24 18:58:18 by kharigae          #+#    #+#              #
-#    Updated: 2022/07/31 17:06:04 by kharigae         ###   ########.fr        #
+#    Updated: 2022/08/05 02:23:50 by kharigae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ CFLAGS = -Wall -Wextra -Werror -pthread
 DEBUG = -g -fsanitize=address -fsanitize=undefined -fsanitize=integer
 
 LEAK = -g -fsanitize=leak
+
+TH = -g -fsanitize=thread
 
 CC = cc
 
@@ -51,4 +53,7 @@ debug :
 leak :
 	clang $(CFLAGS) $(LEAK) $(SRCS) -o $(NAME)
 
-.PHONY : all re clean fclean debug leak
+th :
+	clang $(CFLAGS) $(TH) $(SRCS) -o $(NAME)
+
+.PHONY : all re clean fclean debug leak th

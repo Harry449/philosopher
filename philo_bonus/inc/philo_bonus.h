@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:09:34 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 17:36:25 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 03:00:43 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_philo
 	pthread_t	th;
 	sem_t		*fork;
 	sem_t		*eat;
+	sem_t		*last_eat;
 	sem_t		*act;
 }	t_philo;
 

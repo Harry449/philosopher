@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:04:15 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 17:35:50 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 03:12:25 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ void	*monitor(void *arg)
 	ph = (t_philo *)arg;
 	while (1)
 	{
-		if (ph->last_eat_time == 0)
-			continue ;
+		sem_wait(ph->last_eat);
 		if (get_time() - ph->last_eat_time >= ph->die_time)
 			ph_died(ph, MES_DIEAD);
-		usleep(50);
 	}
 	pthread_exit(NULL);
 }

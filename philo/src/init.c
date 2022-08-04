@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 19:35:25 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/03 21:59:49 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 02:24:46 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_data(t_data *data)
 	data->must_eat = 0;
 	data->fin_must_eat = 0;
 	data->must_eat_flag = false;
-	data->monitor = NULL;
+	// data->monitor = NULL;
 	data->fork = NULL;
 	data->ph = NULL;
 	data->alive = true;

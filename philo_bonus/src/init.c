@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:04:56 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 14:21:46 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 03:13:09 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_data(t_data *data)
 	data->must_eat_flag = false;
 }
 
-sem_t	*sem_set(char *name, int i)
+sem_t	*sem_set(char *name, int i, int val)
 {
 	char	*id;
 	char	*new_name;
@@ -31,7 +31,7 @@ sem_t	*sem_set(char *name, int i)
 	id = ft_itoa(i);
 	new_name = ft_strjoin(name, id);
 	sem_unlink(new_name);
-	ret = sem_open(new_name, O_CREAT, S_IRUSR | S_IWUSR, 0);
+	ret = sem_open(new_name, O_CREAT, S_IRUSR | S_IWUSR, val);
 	if (ret == SEM_FAILED)
 		err_msg(ERR_SEM);
 	sem_unlink(new_name);
@@ -62,7 +62,8 @@ void	init_philo(t_data *data)
 		data->ph[i].eat_num = 0;
 		data->ph[i].id = i + 1;
 		data->ph[i].fork = data->fork;
-		data->ph[i].eat = sem_set("/eat", i);
+		data->ph[i].eat = sem_set("/eat", i, 0);
+		data->ph[i].last_eat = sem_set("/lasteat", i, 0);
 		data->ph[i].act = data->act;
 		i++;
 	}

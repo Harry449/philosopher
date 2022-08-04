@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:47:34 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 06:05:05 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 06:08:51 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	*monitor(void *arg)
 
 	data = arg;
 
-	while (data->alive)//race1
+	while (data->alive)
 	{
 		i = 0;
 		while (i < data->ph_num)
 		{
+			pthread_mutex_lock(&data->act);
 			if (data->ph[i].last_eat_time == 0)//race0
 				continue ;
-			pthread_mutex_lock(&data->act);
 			if (get_time() - data->ph[i].last_eat_time >= data->ph[i].die_time)
 			{
 				ph_died(&data->ph[i]);

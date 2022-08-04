@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:09:31 by kharigae          #+#    #+#             */
-/*   Updated: 2022/07/31 17:05:32 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 06:02:07 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*act;
+	pthread_mutex_t	*last_eat;
+	pthread_mutex_t	*mu_alive;
 	pthread_t		th;
 }	t_philo;
 
@@ -73,6 +75,8 @@ typedef struct s_data
 	pthread_t		monitor;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	act;
+	pthread_mutex_t	last_eat;
+	pthread_mutex_t	mu_alive;
 	t_philo			*ph;
 }	t_data;
 

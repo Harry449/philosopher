@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:47:34 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 00:24:38 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 06:05:05 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	ph_died(t_philo *ph)
 	long	time;
 
 	time = get_time();
-	pthread_mutex_lock(ph->act);
+	pthread_mutex_lock(ph->mu_alive);
 	if (*ph->alive)
 		printf("%ld %d %s", time, ph->id, "died\n");
 	*ph->alive = false;
-	pthread_mutex_unlock(ph->act);
+	pthread_mutex_unlock(ph->mu_alive);
 }
 
 void	*monitor(void *arg)
@@ -30,18 +30,21 @@ void	*monitor(void *arg)
 	t_data	*data;
 
 	data = arg;
-	while (data->alive)
+
+	while (data->alive)//race1
 	{
 		i = 0;
 		while (i < data->ph_num)
 		{
-			if (data->ph[i].last_eat_time == 0)
+			if (data->ph[i].last_eat_time == 0)//race0
 				continue ;
+			pthread_mutex_lock(&data->act);
 			if (get_time() - data->ph[i].last_eat_time >= data->ph[i].die_time)
 			{
 				ph_died(&data->ph[i]);
 				pthread_exit(NULL);
 			}
+			pthread_mutex_unlock(&data->act);
 			i++;
 		}
 		usleep(200);
@@ -54,9 +57,15 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	philo->last_eat_time = get_time();
-	while (*philo->alive)
+	pthread_mutex_lock(philo->act);
+	philo->last_eat_time = get_time();//race0
+	pthread_mutex_unlock(philo->act);
+	while (1)
 	{
+		pthread_mutex_lock(philo->mu_alive);
+		if (*philo->alive == false)
+			break;
+		pthread_mutex_unlock(philo->mu_alive);
 		take_a_fork(philo);
 		eating(philo);
 		ph_action(philo, "is sleeping\n");

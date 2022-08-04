@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:10:15 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/02 19:43:55 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/04 14:23:33 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	fork_error(t_data *data, int id)
 	i = 0;
 	while (i < id)
 	{
-		kill(data->ph[i].ph_pid, SIGINT);
+		kill(data->ph_pid[i], SIGINT);
 		i++;
 	}
 	err_msg("FORK_ERROR");

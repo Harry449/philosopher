@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:04:15 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 14:11:31 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/04 14:21:01 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	create_philo(t_data *data)
 	i = 0;
 	while (i < data->ph_num)
 	{
-		data->ph[i].ph_pid = fork();
-		if (data->ph[i].ph_pid == 0)
+		data->ph_pid[i] = fork();
+		if (data->ph_pid[i] == 0)
 		{
 			pthread_create(&data->ph[i].th, NULL, monitor, &data->ph[i]);
 			ph_routine(&data->ph[i]);
 			pthread_join(data->ph[i].th, NULL);
 			exit (EXIT_SUCCESS);
 		}
-		else if (data->ph[i].ph_pid == -1)
+		else if (data->ph_pid[i] == -1)
 			fork_error(data, i);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:09:34 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 14:11:19 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/04 14:18:30 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_philo
 	long		last_eat_time;
 	int			id;
 	pthread_t	th;
-	pid_t		ph_pid;
 	sem_t		*fork;
 	sem_t		*eat;
 	sem_t		*act;
@@ -87,6 +86,7 @@ typedef struct s_data
 	sem_t	*eat;
 	sem_t	*act;
 	t_philo	*ph;
+	pid_t	*ph_pid;
 }	t_data;
 
 // must_eat_flag	= must_eatが指定されているかのflag

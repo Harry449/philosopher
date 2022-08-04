@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 01:34:09 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/03 03:35:46 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/04 14:27:32 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int	main(int ac, char **av)
 	init_philo(&data);
 	create_prosess(&data);
 	free(data.ph);
+	free(data.ph_pid);
 	return (0);
 }

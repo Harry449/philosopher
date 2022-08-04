@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:04:56 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 13:42:27 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/04 14:21:46 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	init_philo(t_data *data)
 
 	data->ph = (t_philo *)malloc(sizeof(t_philo) * data->ph_num);
 	if (!data->ph)
+		err_msg(ERR_MALLOC);
+	data->ph_pid = (pid_t *)malloc(sizeof(pid_t) * data->ph_num);
+	if (!data->ph_pid)
 		err_msg(ERR_MALLOC);
 	i = 0;
 	while (i < data->ph_num)

@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:04:15 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 03:12:25 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 03:59:58 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	*monitor(void *arg)
 		sem_wait(ph->last_eat);
 		if (get_time() - ph->last_eat_time >= ph->die_time)
 			ph_died(ph, MES_DIEAD);
+		sem_post(ph->last_eat);
+		usleep(200);
 	}
 	pthread_exit(NULL);
 }

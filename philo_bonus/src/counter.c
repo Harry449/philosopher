@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:07:05 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 14:23:57 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/04 17:36:06 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	eat_counter(t_data *data)
 			if (data->ph[i].eat_num == data->must_eat)
 				++fin;
 			if (fin == data->ph_num)
+			{
 				child_kill(data);
+				exit(1);
+			}
 			i++;
 		}
 	}

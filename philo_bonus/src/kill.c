@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 05:31:14 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 14:22:14 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/04 17:27:22 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	child_kill(t_data *data)
 	i = 0;
 	while (i < data->ph_num)
 	{
-		kill(data->ph_pid[i], SIGINT);
+		if (kill(data->ph_pid[i], SIGINT) == -1)
+			err_msg("KILL_ERROR");
 		i++;
 	}
 }
@@ -29,25 +30,16 @@ void	def_kill(t_data *data, pid_t wpid)
 	int	i;
 
 	i = 0;
+	errno = 0;
 	while (i < data->ph_num)
 	{
 		if (data->ph_pid[i] != wpid)
-			kill(data->ph_pid[i], SIGINT);
+		{
+			if (kill(data->ph_pid[i], SIGINT) == -1)
+				err_msg("KILL_ERROR");
+		}
 		i++;
 	}
-	if (data->counter != wpid)
-		kill(data->counter, SIGINT);
-}
-
-void	all_kill(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->ph_num)
-	{
-		kill(data->ph_pid[i], SIGINT);
-		i++;
-	}
-	kill(data->counter, SIGINT);
+	if (kill(data->counter, SIGINT) == -1)
+		err_msg("KILL_ERROR");
 }

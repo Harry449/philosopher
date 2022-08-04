@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:09:34 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 14:18:30 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/04 17:36:25 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*ft_itoa(int n);
 
 //kill.c
 void	child_kill(t_data *data);
-void	all_kill(t_data *data);
+void	all_kill(void);
 void	def_kill(t_data *data, pid_t wpid);
 
 // counter.c

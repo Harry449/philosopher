@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:13:55 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 14:00:45 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:24:11 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ph_time(t_philo *philo, int action_time)
 	{
 		current_time = get_time();
 		if (current_time - philo->last_eat_time >= philo->die_time)
-			ph_died(philo, "died\n");
+			ph_died(philo, MES_DIEAD);
 		if (start_time + action_time <= current_time)
 			return ;
 		usleep(100);

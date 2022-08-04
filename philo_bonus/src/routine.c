@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:07:57 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 14:24:13 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:45:48 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,6 @@ void	ph_died(t_philo *philo, char *msg)
 	printf("%ld %d %s\n", time, philo->id, msg);
 	exit(EXIT_SUCCESS);
 }
-
-// void	ph_act_eat(t_philo *philo)
-// {
-// 	long	time;
-
-// 	time = get_time();
-// 	sem_wait(philo->act);
-// 	sem_post(philo->eat);
-// 	printf("%ld %d %s\n", time, philo->id, MES_EAT);
-// 	sem_post(philo->act);
-
-// }
 
 void	eating(t_philo *ph)
 {

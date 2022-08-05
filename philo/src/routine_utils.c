@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 17:02:54 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/02 18:04:56 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 15:07:28 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	ph_action(t_philo *ph, char *msg)
 
 	time = get_time();
 	pthread_mutex_lock(ph->act);
+	pthread_mutex_lock(ph->mu_alive);
 	if (*ph->alive)
 		printf("%ld %d %s", time, ph->id, msg);
+	pthread_mutex_unlock(ph->mu_alive);
 	pthread_mutex_unlock(ph->act);
 }
 

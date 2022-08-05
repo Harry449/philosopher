@@ -6,7 +6,7 @@
 #    By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/24 18:58:18 by kharigae          #+#    #+#              #
-#    Updated: 2022/08/05 04:08:08 by kharigae         ###   ########.fr        #
+#    Updated: 2022/08/05 13:51:42 by kharigae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ DEBUG = -g -fsanitize=address -fsanitize=undefined -fsanitize=integer -fsanitize
 
 LEAK = -g -fsanitize=leak
 
-TH = -g -fsanitize=thread
+TH = -g -O3 -fsanitize=thread
 
 CC = cc
 

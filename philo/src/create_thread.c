@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:47:34 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 06:08:51 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 15:10:07 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ph_died(t_philo *ph)
 	pthread_mutex_lock(ph->mu_alive);
 	if (*ph->alive)
 		printf("%ld %d %s", time, ph->id, "died\n");
-	*ph->alive = false;
+	*ph->alive = false;//race2
 	pthread_mutex_unlock(ph->mu_alive);
 }
 
@@ -31,17 +31,25 @@ void	*monitor(void *arg)
 
 	data = arg;
 
-	while (data->alive)
+	while (1)//race1.2
 	{
+		pthread_mutex_lock(&data->mu_alive);
+		if (data->alive == false)
+			break ;
+		pthread_mutex_unlock(&data->mu_alive);
 		i = 0;
 		while (i < data->ph_num)
 		{
 			pthread_mutex_lock(&data->act);
-			if (data->ph[i].last_eat_time == 0)//race0
+			if (data->ph[i].last_eat_time == 0)
+			{
+				pthread_mutex_unlock(&data->act);
 				continue ;
+			}
 			if (get_time() - data->ph[i].last_eat_time >= data->ph[i].die_time)
 			{
 				ph_died(&data->ph[i]);
+				pthread_mutex_unlock(&data->act);
 				pthread_exit(NULL);
 			}
 			pthread_mutex_unlock(&data->act);
@@ -49,6 +57,7 @@ void	*monitor(void *arg)
 		}
 		usleep(200);
 	}
+	pthread_mutex_unlock(&data->mu_alive);
 	pthread_exit(NULL);
 }
 
@@ -57,6 +66,7 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	printf("lock = %d\n",philo->id);
 	pthread_mutex_lock(philo->act);
 	philo->last_eat_time = get_time();//race0
 	pthread_mutex_unlock(philo->act);
@@ -72,6 +82,7 @@ void	*routine(void *arg)
 		ph_time(philo, philo->sleep_time);
 		ph_action(philo, "is thinking\n");
 	}
+	pthread_mutex_unlock(philo->mu_alive);
 	pthread_exit(NULL);
 }
 

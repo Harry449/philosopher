@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:50:13 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 05:42:30 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/05 14:56:38 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	count_eat(t_philo *philo)
 	philo->eat_num++;
 	if (philo->eat_num == philo->must_eat)
 		++*philo->fin_must_eat;
+	pthread_mutex_lock(philo->mu_alive);
 	if (*philo->fin_must_eat == philo->ph_num)
 		*philo->alive = false;//race1
+	pthread_mutex_unlock(philo->mu_alive);
 }
 
 void	ph_act_eat(t_philo *ph, char *msg)

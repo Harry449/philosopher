@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:47:34 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 15:10:07 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/06 04:21:53 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ph_died(t_philo *ph)
 	pthread_mutex_lock(ph->mu_alive);
 	if (*ph->alive)
 		printf("%ld %d %s", time, ph->id, "died\n");
-	*ph->alive = false;//race2
+	*ph->alive = false;
 	pthread_mutex_unlock(ph->mu_alive);
 }
 
@@ -30,15 +30,10 @@ void	*monitor(void *arg)
 	t_data	*data;
 
 	data = arg;
-
-	while (1)//race1.2
+	while (1)
 	{
-		pthread_mutex_lock(&data->mu_alive);
-		if (data->alive == false)
-			break ;
-		pthread_mutex_unlock(&data->mu_alive);
-		i = 0;
-		while (i < data->ph_num)
+		i = -1;
+		while (++i < data->ph_num)
 		{
 			pthread_mutex_lock(&data->act);
 			if (data->ph[i].last_eat_time == 0)
@@ -53,11 +48,8 @@ void	*monitor(void *arg)
 				pthread_exit(NULL);
 			}
 			pthread_mutex_unlock(&data->act);
-			i++;
 		}
-		usleep(200);
 	}
-	pthread_mutex_unlock(&data->mu_alive);
 	pthread_exit(NULL);
 }
 
@@ -66,15 +58,14 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	printf("lock = %d\n",philo->id);
 	pthread_mutex_lock(philo->act);
-	philo->last_eat_time = get_time();//race0
+	philo->last_eat_time = get_time();
 	pthread_mutex_unlock(philo->act);
 	while (1)
 	{
 		pthread_mutex_lock(philo->mu_alive);
 		if (*philo->alive == false)
-			break;
+			break ;
 		pthread_mutex_unlock(philo->mu_alive);
 		take_a_fork(philo);
 		eating(philo);

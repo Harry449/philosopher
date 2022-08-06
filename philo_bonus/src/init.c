@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:04:56 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 13:45:11 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/06 17:06:03 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	init_philo(t_data *data)
 		data->ph[i].id = i + 1;
 		data->ph[i].fork = data->fork;
 		data->ph[i].eat = sem_set("/eat", i, 0);
-		data->ph[i].last_eat = sem_set("/lasteat", i, 1);
+		data->ph[i].last_eat = sem_set("/lasteat", i, 0);
 		data->ph[i].act = data->act;
 		i++;
 	}

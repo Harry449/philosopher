@@ -6,7 +6,7 @@
 #    By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/24 18:58:18 by kharigae          #+#    #+#              #
-#    Updated: 2022/08/05 13:51:42 by kharigae         ###   ########.fr        #
+#    Updated: 2022/08/06 04:54:31 by kharigae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJS = $(SRCS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -pthread
 
-DEBUG = -g -fsanitize=address -fsanitize=undefined -fsanitize=integer -fsanitize=thread
+DEBUG = -g -fsanitize=address -fsanitize=undefined -fsanitize=integer
 
 LEAK = -g -fsanitize=leak
 

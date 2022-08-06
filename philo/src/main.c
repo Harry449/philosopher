@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:08:31 by kharigae          #+#    #+#             */
-/*   Updated: 2022/07/31 15:31:44 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/06 20:36:12 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,17 @@ int	solo(t_data *data)
 
 void	th_destroy(t_data *data)
 {
-	pthread_mutex_destroy(data->fork);
+	int	i;
+
+	i = 0;
+	while (i < data->ph_num)
+	{
+		pthread_mutex_destroy(&data->fork[i]);
+		i++;
+	}
 	pthread_mutex_destroy(&data->act);
+	pthread_mutex_destroy(&data->last_eat);
+	pthread_mutex_destroy(&data->mu_alive);
 }
 
 int	main(int ac, char **av)

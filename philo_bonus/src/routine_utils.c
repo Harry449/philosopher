@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:13:55 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 03:00:46 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:47:51 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ void	ph_time(t_philo *philo, int action_time)
 			ph_died(philo, MES_DIEAD);
 		if (start_time + action_time <= current_time)
 			return ;
-		usleep(100);
+		usleep(50);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:50:13 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 14:56:38 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/06 03:59:07 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	count_eat(t_philo *philo)
 		++*philo->fin_must_eat;
 	pthread_mutex_lock(philo->mu_alive);
 	if (*philo->fin_must_eat == philo->ph_num)
-		*philo->alive = false;//race1
+		*philo->alive = false;
 	pthread_mutex_unlock(philo->mu_alive);
 }
 
@@ -27,8 +27,10 @@ void	ph_act_eat(t_philo *ph, char *msg)
 {
 	pthread_mutex_lock(ph->act);
 	ph->last_eat_time = get_time();
+	pthread_mutex_lock(ph->mu_alive);
 	if (*ph->alive)
 		printf("%ld %d %s", ph->last_eat_time, ph->id, msg);
+	pthread_mutex_unlock(ph->mu_alive);
 	if (ph->must_eat)
 		count_eat(ph);
 	pthread_mutex_unlock(ph->act);

@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:07:57 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 13:47:04 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/06 17:10:24 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	eating(t_philo *ph)
 	sem_post(ph->act);
 	sem_wait(ph->last_eat);
 	ph->last_eat_time = get_time();
-	ph_time(ph, ph->eat_time);
 	sem_post(ph->last_eat);
+	ph_time(ph, ph->eat_time);
 	sem_post(ph->fork);
 	sem_post(ph->fork);
 }
@@ -49,8 +49,8 @@ void	taken_a_fork(t_philo *philo)
 
 void	ph_routine(t_philo *philo)
 {
-	sem_wait(philo->last_eat);
-	philo->last_eat_time = get_time();//
+	usleep(500);
+	philo->last_eat_time = get_time();
 	sem_post(philo->last_eat);
 	while (1)
 	{

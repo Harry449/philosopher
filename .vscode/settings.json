@@ -4,6 +4,13 @@
         "stat.h": "c",
         "unistd.h": "c",
         "wait.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "array": "c",
+        "iterator": "c",
+        "string": "c",
+        "string_view": "c",
+        "vector": "c",
+        "pthread.h": "c",
+        "fcntl.h": "c"
     }
 }

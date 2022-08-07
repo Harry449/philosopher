@@ -6,13 +6,13 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:13:55 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/06 15:47:51 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/07 22:18:03 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo_bonus.h"
-//longでいいか
-long	get_time(void)
+
+long long	get_time(void)
 {
 	struct timeval	tv;
 
@@ -22,21 +22,26 @@ long	get_time(void)
 
 void	solo(t_data *data)
 {
-	long	time;
+	long long	c_time;
+	long long	s_time;
 
-	time = get_time();
-	printf("%ld : %d %s", time, 1, "taken a fork\n");
-	printf("%ld : %d %s", time + data->die_time, 1, "died\n");
+	s_time = get_time();
+	printf("%lld : %d %s", s_time, 1, "taken a fork\n");
+	while (1)
+	{
+		c_time = get_time();
+		if (c_time - s_time >= data->die_time)
+			break ;
+		usleep(100);
+	}
+	printf("%lld : %d %s", get_time(), 1, "died\n");
 	exit(EXIT_SUCCESS);
 }
 
 void	ph_action(t_philo *philo, char *msg)
 {
-	long	time;
-
-	time = get_time();
 	sem_wait(philo->act);
-	printf("%ld %d %s\n", time, philo->id, msg);
+	printf("%lld %d %s\n", get_time(), philo->id, msg);
 	sem_post(philo->act);
 }
 

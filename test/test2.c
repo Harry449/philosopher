@@ -5,6 +5,7 @@
 # include <semaphore.h>
 # include <stdlib.h>
 
+//sem_postする前にsem_waitするなと helgrind に怒られる
 
 void	child(void)
 {

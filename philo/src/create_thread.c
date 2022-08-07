@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:47:34 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/06 04:21:53 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/07 18:19:24 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	ph_died(t_philo *ph)
 {
-	long	time;
+	long long	time;
 
 	time = get_time();
-	pthread_mutex_lock(ph->mu_alive);
 	if (*ph->alive)
-		printf("%ld %d %s", time, ph->id, "died\n");
-	*ph->alive = false;
-	pthread_mutex_unlock(ph->mu_alive);
+	{
+		printf("%lld %d %s", time, ph->id, "died\n");
+		*ph->alive = false;
+	}
 }
 
 void	*monitor(void *arg)
@@ -48,9 +48,9 @@ void	*monitor(void *arg)
 				pthread_exit(NULL);
 			}
 			pthread_mutex_unlock(&data->act);
+			usleep(100);
 		}
 	}
-	pthread_exit(NULL);
 }
 
 void	*routine(void *arg)
@@ -63,17 +63,17 @@ void	*routine(void *arg)
 	pthread_mutex_unlock(philo->act);
 	while (1)
 	{
-		pthread_mutex_lock(philo->mu_alive);
+		pthread_mutex_lock(philo->act);
 		if (*philo->alive == false)
 			break ;
-		pthread_mutex_unlock(philo->mu_alive);
+		pthread_mutex_unlock(philo->act);
 		take_a_fork(philo);
 		eating(philo);
 		ph_action(philo, "is sleeping\n");
 		ph_time(philo, philo->sleep_time);
 		ph_action(philo, "is thinking\n");
 	}
-	pthread_mutex_unlock(philo->mu_alive);
+	pthread_mutex_unlock(philo->act);
 	pthread_exit(NULL);
 }
 

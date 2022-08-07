@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:08:31 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/06 20:36:12 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/07 22:18:15 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,23 @@
 
 int	solo(t_data *data)
 {
-	long	time;
+	long long	c_time;
+	long long	s_time;
 
-	time = get_time();
-	printf("%ld : %d %s", time, 1, "taken a fork\n");
-	printf("%ld : %d %s", time + data->die_time, 1, "died\n");
+	s_time = get_time();
+	printf("%lld : %d %s", s_time, 1, "taken a fork\n");
+	while (1)
+	{
+		c_time = get_time();
+		if (c_time - s_time >= data->die_time)
+			break ;
+		usleep(100);
+	}
+	printf("%lld : %d %s", get_time(), 1, "died\n");
 	return (0);
 }
 
-void	th_destroy(t_data *data)
+void	mu_destroy(t_data *data)
 {
 	int	i;
 
@@ -33,8 +41,6 @@ void	th_destroy(t_data *data)
 		i++;
 	}
 	pthread_mutex_destroy(&data->act);
-	pthread_mutex_destroy(&data->last_eat);
-	pthread_mutex_destroy(&data->mu_alive);
 }
 
 int	main(int ac, char **av)
@@ -52,7 +58,7 @@ int	main(int ac, char **av)
 		return (err_msg("MALLOC_ERROR\n"));
 	if (create_thread(&data))
 		return (ERROR);
-	th_destroy(&data);
+	mu_destroy(&data);
 	free(data.ph);
 	free(data.fork);
 	return (SUCCESS);

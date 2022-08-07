@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:04:15 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/06 15:41:04 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/07 22:51:10 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	*monitor(void *arg)
 			ph_died(ph, MES_DIEAD);
 		usleep(500);
 	}
-	pthread_exit(NULL);
 }
 
 void	create_philo(t_data *data)

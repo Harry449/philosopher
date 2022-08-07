@@ -1,6 +1,8 @@
 # include <stdio.h>
 # include <pthread.h>
 
+//ctrl-Cで終了するとhelgrindでエラーになる
+//リークもエラーでるが問題なし
 void	*routine(void *arg)
 {
 	pthread_mutex_t *mu;

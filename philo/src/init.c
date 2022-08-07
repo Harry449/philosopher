@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 19:35:25 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 06:02:48 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/07 17:49:04 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,12 @@ int	init_thread(t_data *d)
 	if (!d->fork)
 		return (free_data(d));
 	pthread_mutex_init(&d->act, NULL);
-	pthread_mutex_init(&d->last_eat, NULL);
-	pthread_mutex_init(&d->mu_alive, NULL);
 	while (i < d->ph_num)
 	{
 		pthread_mutex_init(&d->fork[i], NULL);
 		d->ph[i].left_fork = &d->fork[i];
 		d->ph[i].right_fork = &d->fork[(i - 1 + d->ph_num) % d->ph_num];
 		d->ph[i].act = &d->act;
-		d->ph[i].last_eat = &d->last_eat;
-		d->ph[i].mu_alive = &d->mu_alive;
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 17:02:54 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/06 03:59:20 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/07 18:18:42 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 void	ph_action(t_philo *ph, char *msg)
 {
-	long	time;
+	long long	time;
 
 	time = get_time();
 	pthread_mutex_lock(ph->act);
-	pthread_mutex_lock(ph->mu_alive);
 	if (*ph->alive)
-		printf("%ld %d %s", time, ph->id, msg);
-	pthread_mutex_unlock(ph->mu_alive);
+		printf("%lld %d %s", time, ph->id, msg);
 	pthread_mutex_unlock(ph->act);
 }
 
-long	get_time(void)
+long long	get_time(void)
 {
 	struct timeval	tv;
 
@@ -43,7 +41,12 @@ void	ph_time(t_philo *philo, int action_time)
 	{
 		current_time = get_time();
 		if (current_time - philo->last_eat_time >= philo->die_time)
+		{
+			pthread_mutex_lock(philo->act);
 			ph_died(philo);
+			pthread_mutex_unlock(philo->act);
+			return ;
+		}
 		if (start_time + action_time <= current_time)
 			return ;
 		usleep(100);

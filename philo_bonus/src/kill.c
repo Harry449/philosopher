@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 05:31:14 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/04 17:27:22 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/07 19:31:42 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	def_kill(t_data *data, pid_t wpid)
 	int	i;
 
 	i = 0;
-	errno = 0;
 	while (i < data->ph_num)
 	{
 		if (data->ph_pid[i] != wpid)

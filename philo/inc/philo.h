@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:09:31 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 06:02:07 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/07 17:48:55 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,12 @@ typedef struct s_philo
 	int				must_eat;
 	int				eat_num;
 	int				*fin_must_eat;
-	long			last_eat_time;
+	long long		last_eat_time;
 	bool			*alive;
 	int				id;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*act;
-	pthread_mutex_t	*last_eat;
-	pthread_mutex_t	*mu_alive;
 	pthread_t		th;
 }	t_philo;
 
@@ -75,8 +73,6 @@ typedef struct s_data
 	pthread_t		monitor;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	act;
-	pthread_mutex_t	last_eat;
-	pthread_mutex_t	mu_alive;
 	t_philo			*ph;
 }	t_data;
 
@@ -85,24 +81,24 @@ typedef struct s_data
 // philo	= 哲学者の人数分の配列
 
 //create_thread.c
-void	ph_died(t_philo *ph);
-int		create_thread(t_data *data);
+void		ph_died(t_philo *ph);
+int			create_thread(t_data *data);
 //error.c
-int		error_value(void);
-int		err_msg(char *msg);
-int		free_data(t_data *data);
-int		error_usage(void);
+int			error_value(void);
+int			err_msg(char *msg);
+int			free_data(t_data *data);
+int			error_usage(void);
 //init.c
-void	init_data(t_data *data);
-int		init_philo(t_data *data);
-int		init_thread(t_data *d);
+void		init_data(t_data *data);
+int			init_philo(t_data *data);
+int			init_thread(t_data *d);
 //routine.c
-void	eating(t_philo *philo);
-void	take_a_fork(t_philo *philo);
+void		eating(t_philo *philo);
+void		take_a_fork(t_philo *philo);
 //routine_util.c
-void	ph_action(t_philo *ph, char *msg);
-long	get_time(void);
-void	ph_time(t_philo *philo, int action_time);
+void		ph_action(t_philo *ph, char *msg);
+long long	get_time(void);
+void		ph_time(t_philo *philo, int action_time);
 //store_argument.c
-int		store_argument(int ac, char **av, t_data *data);
+int			store_argument(int ac, char **av, t_data *data);
 #endif

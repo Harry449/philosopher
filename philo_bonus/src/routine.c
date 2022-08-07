@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 06:07:57 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/06 17:10:24 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/07 23:23:28 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,15 @@
 
 void	ph_died(t_philo *philo, char *msg)
 {
-	long	time;
-
-	time = get_time();
 	sem_wait(philo->act);
-	printf("%ld %d %s\n", time, philo->id, msg);
+	printf("%lld %d %s\n", get_time(), philo->id, msg);
 	exit(EXIT_SUCCESS);
 }
 
 void	eating(t_philo *ph)
 {
 	sem_wait(ph->act);
-	printf("%ld %d %s\n", get_time(), ph->id, MES_EAT);
+	printf("%lld %d %s\n", get_time(), ph->id, MES_EAT);
 	sem_post(ph->eat);
 	usleep(100);
 	sem_post(ph->act);
@@ -49,7 +46,6 @@ void	taken_a_fork(t_philo *philo)
 
 void	ph_routine(t_philo *philo)
 {
-	usleep(500);
 	philo->last_eat_time = get_time();
 	sem_post(philo->last_eat);
 	while (1)

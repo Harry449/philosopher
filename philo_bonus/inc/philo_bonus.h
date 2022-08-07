@@ -6,7 +6,7 @@
 /*   By: kharigae <kharigae@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:09:34 by kharigae          #+#    #+#             */
-/*   Updated: 2022/08/05 03:00:43 by kharigae         ###   ########.fr       */
+/*   Updated: 2022/08/07 19:44:20 by kharigae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_philo
 	int			sleep_time;
 	int			must_eat;
 	int			eat_num;
-	long		last_eat_time;
+	long long	last_eat_time;
 	int			id;
 	pthread_t	th;
 	sem_t		*fork;
@@ -94,45 +94,45 @@ typedef struct s_data
 // monitor			= 哲学者を監視するプロセス
 
 // error.c
-void	error_usage(void);
-void	err_msg(char *msg);
-void	fork_error(t_data *data, int id);
+void		error_usage(void);
+void		err_msg(char *msg);
+void		fork_error(t_data *data, int id);
 
 // init.c
-void	create_sem(t_data *data);
-void	init_philo(t_data *data);
-void	init_data(t_data *data);
+void		create_sem(t_data *data);
+void		init_philo(t_data *data);
+void		init_data(t_data *data);
 
 // itoa.c
-char	*ft_itoa(int n);
+char		*ft_itoa(int n);
 
 //kill.c
-void	child_kill(t_data *data);
-void	all_kill(void);
-void	def_kill(t_data *data, pid_t wpid);
+void		child_kill(t_data *data);
+void		all_kill(void);
+void		def_kill(t_data *data, pid_t wpid);
 
 // counter.c
-void	eat_counter(t_data *data);
-void	counter(t_data *data);
+void		eat_counter(t_data *data);
+void		counter(t_data *data);
 
 // prosess.c
-void	create_prosess(t_data *data);
+void		create_prosess(t_data *data);
 
 // routine_util.c
-long	get_time(void);
-void	solo(t_data *data);
-void	ph_action(t_philo *philo, char *msg);
-void	ph_time(t_philo *philo, int action_time);
+long long	get_time(void);
+void		solo(t_data *data);
+void		ph_action(t_philo *philo, char *msg);
+void		ph_time(t_philo *philo, int action_time);
 
 // routine.c
-void	ph_died(t_philo *philo, char *msg);
-void	taken_a_fork(t_philo *philo);
-void	eating(t_philo *philo);
-void	ph_routine(t_philo *philo);
+void		ph_died(t_philo *philo, char *msg);
+void		taken_a_fork(t_philo *philo);
+void		eating(t_philo *philo);
+void		ph_routine(t_philo *philo);
 
 // store_argument.c
-void	store_argument(int ac, char **av, t_data *data);
+void		store_argument(int ac, char **av, t_data *data);
 
 //strjoin.c
-char	*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin(char const *s1, char const *s2);
 #endif
